@@ -11,6 +11,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::post('/signup', [UserController::class, 'signUp']);
 
+Route::post('/signin', [UserController::class, 'signIn']);
+
 Route::get('/properties', [PropertyController::class, 'allProperties']);
 
 Route::get('/properties/{id}', [PropertyController::class, 'getProperty']);
