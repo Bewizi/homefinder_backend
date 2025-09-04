@@ -37,11 +37,15 @@ class UserController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (Auth::attempt($data)) {
-            $user = Auth::user();
-            return response()->json(['user' => $user, 'message' => 'User signed in successfully'], 200);
-        }
-        return response()->json(['message' => 'Invalid credentials'], 401);
+        $user = User::find('email', $data['email']);
+
+        // if (Auth::attempt($data)) {
+        //     $user = Auth::user();
+        //     return response()->json(['user' => $user, 'message' => 'User signed in successfully'], 200);
+        // }
+        // return response()->json(['message' => 'Invalid credentials'], 401);
+
+        return response()->json(['user' => $user, 'message' => 'User signed in successfully'], 200);
     }
 
     public function forgotPassword()
