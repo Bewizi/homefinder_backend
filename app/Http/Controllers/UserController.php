@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -28,9 +29,23 @@ class UserController extends Controller
         return response()->json(['user' => $user, 'message' => 'User registered successfully'], 201);
     }
 
-    public function signIn()
+    public function signIn(Request $request)
     {
         //
+        $data = $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        $user = User::find('email', $data['email']);
+
+        // if (Auth::attempt($data)) {
+        //     $user = Auth::user();
+        //     return response()->json(['user' => $user, 'message' => 'User signed in successfully'], 200);
+        // }
+        // return response()->json(['message' => 'Invalid credentials'], 401);
+
+        return response()->json(['user' => $user, 'message' => 'User signed in successfully'], 200);
     }
 
     public function forgotPassword()
